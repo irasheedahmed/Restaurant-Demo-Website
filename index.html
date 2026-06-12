@@ -16,6 +16,8 @@
     --cream: #f5f0e8;
     --muted: #888880;
     --gold: #c8a84b;
+    --nav-h: 88px;
+    --nav-h-mobile: 64px;
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,21 +36,32 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
+    height: var(--nav-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 2.5rem;
+    padding: 0 2.5rem;
     background: rgba(10,10,10,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
   .nav-logo {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.1em;
-    color: var(--cream);
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
     text-decoration: none;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .nav-logo img {
+    display: block;
+    height: 100px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
   }
 
   .nav-logo span { color: var(--ember); }
@@ -83,6 +96,7 @@
     cursor: pointer;
     text-decoration: none;
     transition: opacity 0.2s;
+    flex-shrink: 0;
   }
 
   .nav-cta:hover { opacity: 0.85; }
@@ -348,6 +362,39 @@
     display: block;
   }
 
+  .menu-cta-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .menu-cta-block {
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--ember);
+    color: #fff;
+    padding: 1rem 2.2rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: opacity 0.2s, transform 0.2s;
+    min-width: 220px;
+  }
+
+  .menu-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
   /* ABOUT / SPLIT */
   .split-section {
     padding: 6rem 2.5rem;
@@ -365,13 +412,31 @@
 
   @media (max-width: 768px) {
     .split-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .hero-stats { position: static; flex-direction: row; justify-content: flex-start; margin-top: 3rem; }
-    nav { padding: 1rem 1.25rem; }
+    .hero-stats { position: static; flex-direction: row; justify-content: flex-start; margin-top: 3rem; gap: 1.75rem; flex-wrap: wrap; }
+    .stat { text-align: left; }
+    .stat-num { font-size: 1.6rem; }
+    .stat-label { font-size: 0.55rem; }
+    h1 { font-size: clamp(2.8rem, 16vw, 5rem); }
+    .hero-sub { font-size: 1rem; max-width: 100%; }
+    .hero-actions { width: 100%; }
+    .hero-actions a { flex: 1; text-align: center; }
+    nav { height: var(--nav-h-mobile); padding: 0 1.25rem; }
     .nav-links { display: none; }
-    .hero { padding: 7rem 1.25rem 3rem; }
+    .nav-logo img { height: 74px; max-width: 150px; }
+    .nav-cta { padding: 0.5rem 1rem; font-size: 0.62rem; }
+    .hero { padding: calc(var(--nav-h-mobile) + 1.5rem) 1.25rem 3rem; }
     .section { padding: 4rem 1.25rem; }
     .split-section { padding: 4rem 1.25rem; }
     .contact-wrap { padding: 4rem 1.25rem; }
+    .section-header { flex-direction: column; align-items: flex-start; }
+    .menu-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .menu-card, .review-card { padding: 1.5rem; }
+    .menu-cta-row { margin-top: 1.5rem; }
+    .menu-cta-block { width: 100%; }
+    .menu-cta { width: 100%; max-width: 320px; min-width: 0; }
+    .menu-cta-note { font-size: 0.56rem; }
+    .visual-box { padding: 2rem; }
+    footer { flex-direction: column; align-items: flex-start; text-align: left; }
   }
 
   .split-kicker {
@@ -624,7 +689,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">FUEL<span>.</span></a>
+  <a href="#" class="nav-logo" aria-label="Fuel Grill Home"><img src="logo.png" alt="Fuel Grill Logo"></a>
   <ul class="nav-links">
     <li><a href="#menu">Menu</a></li>
     <li><a href="#about">About</a></li>
@@ -654,7 +719,7 @@
       <div class="stat-label">Google Rating</div>
     </div>
     <div class="stat">
-      <div class="stat-num">$6.99</div>
+      <div class="stat-num">$11.99</div>
       <div class="stat-label">Starting Price</div>
     </div>
   </div>
@@ -663,22 +728,22 @@
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">Smash Burgers <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Zinger Burger <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Fuel Burger <span class="marquee-dot">◆</span></span>
     <span class="marquee-item">Mushroom Burger <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Crispy Chicken Sandwiches <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Fresh Cut Fries <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Milkshakes <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Volcano Fries <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Chicken Sandwiches <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">BBQ Bacon Burger <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Nutella Shake <span class="marquee-dot">◆</span></span>
     <span class="marquee-item">100% Halal <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">James North, Hamilton <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Smash Burgers <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Zinger Burger <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Barton St E, Hamilton <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Fuel Burger <span class="marquee-dot">◆</span></span>
     <span class="marquee-item">Mushroom Burger <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Crispy Chicken Sandwiches <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Fresh Cut Fries <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">Milkshakes <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Volcano Fries <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Chicken Sandwiches <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">BBQ Bacon Burger <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Nutella Shake <span class="marquee-dot">◆</span></span>
     <span class="marquee-item">100% Halal <span class="marquee-dot">◆</span></span>
-    <span class="marquee-item">James North, Hamilton <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Barton St E, Hamilton <span class="marquee-dot">◆</span></span>
   </div>
 </div>
 
@@ -690,53 +755,59 @@
       <div class="section-label">What We Serve</div>
       <h2>THE MENU</h2>
     </div>
-    <a href="#contact" class="btn-ghost">Full Menu In-Store</a>
+    <a href="https://www.ubereats.com/ca/store/fuel-grill-barton-st-28-barton-st-e/4qDV0bCeTRS9I72keZvlRw" target="_blank" class="btn-ghost">Full Menu In-Uber Eats</a>
   </div>
 
   <div class="menu-grid">
     <div class="menu-card reveal">
-      <span class="menu-card-badge">Most Popular</span>
+      <span class="menu-card-badge">#1 Most Liked</span>
       <span class="menu-card-icon">🔥</span>
-      <div class="menu-card-name">Zinger Burger</div>
-      <div class="menu-card-desc">Crispy spiced chicken fillet, house sauce, fresh lettuce, pickles on a toasted brioche bun.</div>
-      <div class="menu-card-price">$6.99</div>
+      <div class="menu-card-name">Fuel Burger</div>
+      <div class="menu-card-desc">Truffle sauce, jalapeño, mushroom, beef bacon, onion rings and lettuce.</div>
+      <div class="menu-card-price">$14.99</div>
       <span class="menu-card-halal">✓ Halal Certified</span>
     </div>
     <div class="menu-card reveal reveal-delay-1">
       <span class="menu-card-icon">🍄</span>
       <div class="menu-card-name">Mushroom Burger</div>
-      <div class="menu-card-desc">Double smash patty, sautéed mushrooms, Brie cheese, pesto aioli, fresh greens.</div>
-      <div class="menu-card-price">$7.99</div>
+      <div class="menu-card-desc">Fuel sauce, sautéed mushrooms, caramelized onion, and lettuce.</div>
+      <div class="menu-card-price">$12.99</div>
       <span class="menu-card-halal">✓ Halal Certified</span>
     </div>
     <div class="menu-card reveal reveal-delay-2">
       <span class="menu-card-icon">🥩</span>
-      <div class="menu-card-name">Bacon Smash</div>
-      <div class="menu-card-desc">Double smash patty, crispy bacon, cheddar, caramelized onions, house smash sauce.</div>
-      <div class="menu-card-price">$8.49</div>
+      <div class="menu-card-name">BBQ Bacon Burger</div>
+      <div class="menu-card-desc">Barbecue sauce, mayo, beef bacon and lettuce.</div>
+      <div class="menu-card-price">$12.99</div>
       <span class="menu-card-halal">✓ Halal Certified</span>
     </div>
     <div class="menu-card reveal reveal-delay-3">
+      <span class="menu-card-badge">#3 Most Liked</span>
       <span class="menu-card-icon">🍟</span>
-      <div class="menu-card-name">Fresh Cut Fries</div>
-      <div class="menu-card-desc">Hand-cut daily, fried golden and seasoned. Upgrade to loaded or poutine.</div>
-      <div class="menu-card-price">$3.49</div>
-      <span class="menu-card-halal">✓ Vegan Option</span>
+      <div class="menu-card-name">Volcano Fries</div>
+      <div class="menu-card-desc">Crispy golden fries with cheese, chicken bites, buffalo sauce, ranch sauce, and green onion.</div>
+      <div class="menu-card-price">$8.99</div>
+      <span class="menu-card-halal">✓ Halal Certified</span>
     </div>
     <div class="menu-card reveal">
-      <span class="menu-card-badge">New</span>
       <span class="menu-card-icon">🥤</span>
-      <div class="menu-card-name">Thick Milkshakes</div>
-      <div class="menu-card-desc">Vanilla, chocolate, strawberry. Made with real ice cream — no shortcuts.</div>
-      <div class="menu-card-price">$5.49</div>
+      <div class="menu-card-name">Nutella Shake</div>
+      <div class="menu-card-desc">Thick, creamy milkshake blended with real Nutella.</div>
+      <div class="menu-card-price">$7.99</div>
       <span class="menu-card-halal">✓ Halal Certified</span>
     </div>
     <div class="menu-card reveal reveal-delay-1">
+      <span class="menu-card-badge">#2 Most Liked</span>
       <span class="menu-card-icon">🍗</span>
-      <div class="menu-card-name">Chicken Sandwich</div>
-      <div class="menu-card-desc">Grilled or crispy, your choice. Loaded with fresh toppings and our signature fire sauce.</div>
-      <div class="menu-card-price">$6.99</div>
+      <div class="menu-card-name">The Classic Chicken Sandwich</div>
+      <div class="menu-card-desc">Tomato, pickles, ranch sauce, and lettuce.</div>
+      <div class="menu-card-price">$11.99</div>
       <span class="menu-card-halal">✓ Halal Certified</span>
+    </div>
+  </div>
+  <div class="menu-cta-row reveal">
+    <div class="menu-cta-block">
+      <a href="https://www.ubereats.com/ca/store/fuel-grill-barton-st-28-barton-st-e/4qDV0bCeTRS9I72keZvlRw" target="_blank" rel="noopener noreferrer" class="menu-cta">View Full Menu</a>
     </div>
   </div>
 </div>
